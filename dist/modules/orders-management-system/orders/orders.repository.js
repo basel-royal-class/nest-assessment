@@ -47,6 +47,39 @@ let OrdersRepository = class OrdersRepository extends typeorm_1.Repository {
         }
         return orderDB;
     }
+    async getOrders() {
+        return await this.find({ relations: ['user', 'items'] });
+    }
+    async updateOrder(updateOrderDto) {
+        const { id, total_amount, status, orderItems } = updateOrderDto;
+        const order = await this.findOne({ where: { id }, relations: ['items'] });
+        if (!order) {
+            throw new Error('Order not found');
+        }
+        if (total_amount !== undefined) {
+            order.total_amount = total_amount;
+        }
+        if (status !== undefined) {
+            order.status = status;
+        }
+        await this.save(order);
+        if (orderItems) {
+            await this.orderItemsRepositoy.delete({ order_id: order.id });
+            for (const item of orderItems) {
+                const orderItem = new order_item_entity_1.OrderItemEntity();
+                orderItem.product_id = item.product_id;
+                orderItem.quantity = item.quantity;
+                orderItem.price = item.price;
+                orderItem.order_id = order.id;
+                await this.orderItemsRepositoy.save(orderItem);
+            }
+        }
+        const updatedOrder = await this.findOne({ where: { id: order.id }, relations: ['items'] });
+        if (!updatedOrder) {
+            throw new Error('Updated order not found');
+        }
+        return updatedOrder;
+    }
 };
 exports.OrdersRepository = OrdersRepository;
 exports.OrdersRepository = OrdersRepository = __decorate([

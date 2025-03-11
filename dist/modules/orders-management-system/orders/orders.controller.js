@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const auth_guard_1 = require("../../../auth/auth-guard");
 const create_order_dto_1 = require("./dto/create.order.dto");
 const orders_service_1 = require("./orders.service");
+const update_order_dto_1 = require("./dto/update.order.dto");
 let OrdersController = class OrdersController {
     ordersService;
     constructor(ordersService) {
@@ -24,6 +25,12 @@ let OrdersController = class OrdersController {
     }
     async createOrder(createOrderDto) {
         return this.ordersService.createOrder(createOrderDto);
+    }
+    async getOrders() {
+        return this.ordersService.getOrders();
+    }
+    async updateOrder(updateOrderDto) {
+        return this.ordersService.updateOrder(updateOrderDto);
     }
 };
 exports.OrdersController = OrdersController;
@@ -34,6 +41,19 @@ __decorate([
     __metadata("design:paramtypes", [create_order_dto_1.CreateOrderDto]),
     __metadata("design:returntype", Promise)
 ], OrdersController.prototype, "createOrder", null);
+__decorate([
+    (0, common_1.Get)(),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], OrdersController.prototype, "getOrders", null);
+__decorate([
+    (0, common_1.Patch)(),
+    __param(0, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [update_order_dto_1.UpdateOrderDto]),
+    __metadata("design:returntype", Promise)
+], OrdersController.prototype, "updateOrder", null);
 exports.OrdersController = OrdersController = __decorate([
     (0, common_1.Controller)('orders'),
     (0, common_1.UseGuards)(new auth_guard_1.JwtAuthGuard('jwt')),

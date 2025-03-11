@@ -13,6 +13,7 @@ exports.ProductEntity = void 0;
 const typeorm_1 = require("typeorm");
 const category_entity_1 = require("../../categories/entity/category.entity");
 const order_item_entity_1 = require("../../../orders-management-system/order_items/entity/order.item.entity");
+const cart_item_entity_1 = require("../../../shopping-cart-system/cart_item/entity/cart.item.entity");
 let ProductEntity = class ProductEntity {
     id;
     name;
@@ -21,6 +22,7 @@ let ProductEntity = class ProductEntity {
     categoryId;
     category;
     orderItems;
+    cartItems;
 };
 exports.ProductEntity = ProductEntity;
 __decorate([
@@ -52,6 +54,10 @@ __decorate([
     (0, typeorm_1.OneToMany)(() => order_item_entity_1.OrderItemEntity, (orderItem) => orderItem.product),
     __metadata("design:type", Array)
 ], ProductEntity.prototype, "orderItems", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => cart_item_entity_1.CartItemEntity, (cartItem) => cartItem.product),
+    __metadata("design:type", Array)
+], ProductEntity.prototype, "cartItems", void 0);
 exports.ProductEntity = ProductEntity = __decorate([
     (0, typeorm_1.Entity)('products')
 ], ProductEntity);

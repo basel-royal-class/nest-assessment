@@ -20,6 +20,12 @@ let OrdersService = class OrdersService {
     async createOrder(createOrderDto) {
         return this.ordersRepository.createOrder(createOrderDto);
     }
+    async getOrders() {
+        return this.ordersRepository.getOrders();
+    }
+    async updateOrder(updateOrderDto) {
+        return this.ordersRepository.updateOrder(updateOrderDto);
+    }
 };
 exports.OrdersService = OrdersService;
 exports.OrdersService = OrdersService = __decorate([

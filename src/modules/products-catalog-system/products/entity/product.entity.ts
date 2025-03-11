@@ -1,6 +1,7 @@
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { CategoryEntity } from '../../categories/entity/category.entity';
 import { OrderItemEntity } from 'src/modules/orders-management-system/order_items/entity/order.item.entity';
+import { CartItemEntity } from 'src/modules/shopping-cart-system/cart_item/entity/cart.item.entity';
 
 @Entity('products')
 export class ProductEntity {
@@ -25,5 +26,8 @@ export class ProductEntity {
 
     @OneToMany(() => OrderItemEntity, (orderItem) => orderItem.product)
     orderItems: OrderItemEntity[];
+
+    @OneToMany(() => CartItemEntity, (cartItem) => cartItem.product)
+    cartItems: CartItemEntity[];
 
 }

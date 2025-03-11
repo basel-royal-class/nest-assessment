@@ -7,6 +7,7 @@ import { ProductsModule } from './modules/products-catalog-system/products/produ
 import { CategoriesModule } from './modules/products-catalog-system/categories/categories.module';
 import { OrdersModule } from './modules/orders-management-system/orders/orders.module';
 import { OrderItemsModule } from './modules/orders-management-system/order_items/order.items.module';
+import { CartsModule } from './modules/shopping-cart-system/cart/carts.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -29,6 +30,8 @@ import { OrderItemsModule } from './modules/orders-management-system/order_items
     CategoriesModule,
     OrderItemsModule,
     OrdersModule,
+    CartsModule,
+    OrderItemsModule
   ],
 })
 export class AppModule { }
