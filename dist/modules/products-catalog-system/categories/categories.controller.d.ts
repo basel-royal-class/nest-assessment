@@ -7,5 +7,5 @@ export declare class CategoriesController {
     constructor(categoriesService: CategoriesService);
     createCategory(createCategoryDto: CreateCategoryDto): Promise<{} | CategoryEntity>;
     getCategories(): Promise<CategoryEntity[]>;
-    updateCategory(updateCategoryDto: UpdateCategoryDto): Promise<{} | CategoryEntity>;
+    updateCategory(updateCategoryDto: UpdateCategoryDto): Promise<CategoryEntity>;
 }

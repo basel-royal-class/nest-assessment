@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ProductEntity = void 0;
 const typeorm_1 = require("typeorm");
 const category_entity_1 = require("../../categories/entity/category.entity");
+const order_item_entity_1 = require("../../../orders-management-system/order_items/entity/order.item.entity");
 let ProductEntity = class ProductEntity {
     id;
     name;
@@ -19,6 +20,7 @@ let ProductEntity = class ProductEntity {
     price;
     categoryId;
     category;
+    orderItems;
 };
 exports.ProductEntity = ProductEntity;
 __decorate([
@@ -46,6 +48,10 @@ __decorate([
     (0, typeorm_1.JoinColumn)({ name: 'categoryId' }),
     __metadata("design:type", category_entity_1.CategoryEntity)
 ], ProductEntity.prototype, "category", void 0);
+__decorate([
+    (0, typeorm_1.OneToMany)(() => order_item_entity_1.OrderItemEntity, (orderItem) => orderItem.product),
+    __metadata("design:type", Array)
+], ProductEntity.prototype, "orderItems", void 0);
 exports.ProductEntity = ProductEntity = __decorate([
     (0, typeorm_1.Entity)('products')
 ], ProductEntity);

@@ -6,7 +6,7 @@ export declare class ProductsRepository extends Repository<ProductEntity> {
     private dataSource;
     private categoryRepository;
     constructor(dataSource: DataSource);
-    createProduct(createProductDto: CreateProductDto): Promise<{} | ProductEntity>;
+    createProduct(createProductDto: CreateProductDto): Promise<ProductEntity>;
     getProducts(): Promise<ProductEntity[]>;
     updateProduct(updateProductDto: UpdateProductDto): Promise<ProductEntity>;
     deleteProduct(id: number): Promise<void>;

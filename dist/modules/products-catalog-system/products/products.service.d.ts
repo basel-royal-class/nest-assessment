@@ -5,7 +5,7 @@ import { UpdateProductDto } from './dto/update.product.dto';
 export declare class ProductsService {
     private readonly productsRepository;
     constructor(productsRepository: ProductsRepository);
-    createProduct(createProductDto: CreateProductDto): Promise<{} | ProductEntity>;
+    createProduct(createProductDto: CreateProductDto): Promise<ProductEntity>;
     getProducts(): Promise<ProductEntity[]>;
     updateProduct(updateProductDto: UpdateProductDto): Promise<ProductEntity>;
     deleteProduct(id: number): Promise<void>;

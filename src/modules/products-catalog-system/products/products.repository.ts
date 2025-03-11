@@ -3,7 +3,6 @@ import { DataSource, Repository } from 'typeorm';
 import { ProductEntity } from './entity/product.entity';
 import { CreateProductDto } from './dto/create.product.dto';
 import { UpdateProductDto } from './dto/update.product.dto';
-import { CreateCategoryDto } from '../categories/dto/create.category.dto';
 import { CategoryEntity } from '../categories/entity/category.entity';
 
 @Injectable()
@@ -15,13 +14,12 @@ export class ProductsRepository extends Repository<ProductEntity> {
         this.categoryRepository = dataSource.getRepository(CategoryEntity);
     }
 
-    async createProduct(createProductDto: CreateProductDto): Promise<{} | ProductEntity> {
+    async createProduct(createProductDto: CreateProductDto): Promise<ProductEntity> {
         const { name, categoryId, description, price } = createProductDto;
 
         const category = await this.findOne({ where: { id: categoryId } });
         if (!category) {
-            return { message: 'Category is not found with provided id' };
-            // throw new Error('Category not found');
+            throw new Error('Category not found');
         }
 
         const product = this.create({
@@ -29,7 +27,6 @@ export class ProductsRepository extends Repository<ProductEntity> {
             description,
             price,
             categoryId,
-            // category,
         });
 
         return await this.save(product);

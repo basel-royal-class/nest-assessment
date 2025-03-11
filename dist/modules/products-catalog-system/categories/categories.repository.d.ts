@@ -6,6 +6,6 @@ export declare class CategoriesRepository extends Repository<CategoryEntity> {
     private dataSource;
     constructor(dataSource: DataSource);
     createCategory(categoryDto: CreateCategoryDto): Promise<CategoryEntity>;
-    updateCategory(updateCategoryDto: UpdateCategoryDto): Promise<{} | CategoryEntity>;
+    updateCategory(updateCategoryDto: UpdateCategoryDto): Promise<CategoryEntity>;
     getCategories(): Promise<CategoryEntity[]>;
 }

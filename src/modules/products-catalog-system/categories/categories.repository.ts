@@ -22,11 +22,11 @@ export class CategoriesRepository extends Repository<CategoryEntity> {
         return await this.save(category);
     }
 
-    async updateCategory(updateCategoryDto: UpdateCategoryDto): Promise<{} | CategoryEntity> {
+    async updateCategory(updateCategoryDto: UpdateCategoryDto): Promise<CategoryEntity> {
         const { name, id } = updateCategoryDto;
         const category = await this.findOne({ where: { id: id } });
         if (!category) {
-            return { message: "Category not found!" };
+            throw Error("Category not found!");
         }
         if (name) category.name = name;
         return await this.save(category);

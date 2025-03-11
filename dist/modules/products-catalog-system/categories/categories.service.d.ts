@@ -6,6 +6,6 @@ export declare class CategoriesService {
     private readonly productsRepository;
     constructor(productsRepository: CategoriesRepository);
     createCategory(categoryDto: CreateCategoryDto): Promise<CategoryEntity>;
-    updateCategory(updateCategoryDto: UpdateCategoryDto): Promise<{} | CategoryEntity>;
+    updateCategory(updateCategoryDto: UpdateCategoryDto): Promise<CategoryEntity>;
     getCategories(): Promise<CategoryEntity[]>;
 }

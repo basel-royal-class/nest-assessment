@@ -32,7 +32,7 @@ let CategoriesRepository = class CategoriesRepository extends typeorm_1.Reposito
         const { name, id } = updateCategoryDto;
         const category = await this.findOne({ where: { id: id } });
         if (!category) {
-            return { message: "Category not found!" };
+            throw Error("Category not found!");
         }
         if (name)
             category.name = name;

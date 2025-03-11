@@ -26,7 +26,7 @@ let ProductsRepository = class ProductsRepository extends typeorm_1.Repository {
         const { name, categoryId, description, price } = createProductDto;
         const category = await this.findOne({ where: { id: categoryId } });
         if (!category) {
-            return { message: 'Category is not found with provided id' };
+            throw new Error('Category not found');
         }
         const product = this.create({
             name,

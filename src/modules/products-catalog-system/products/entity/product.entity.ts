@@ -1,5 +1,6 @@
-import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { CategoryEntity } from '../../categories/entity/category.entity';
+import { OrderItemEntity } from 'src/modules/orders-management-system/order_items/entity/order.item.entity';
 
 @Entity('products')
 export class ProductEntity {
@@ -21,4 +22,8 @@ export class ProductEntity {
     @ManyToOne(() => CategoryEntity, (category) => category.products, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'categoryId' }) // Specifies the column to use as the foreign key
     category: CategoryEntity; // Optional: this gives you access to the full Category object (populated automatically)
+
+    @OneToMany(() => OrderItemEntity, (orderItem) => orderItem.product)
+    orderItems: OrderItemEntity[];
+
 }

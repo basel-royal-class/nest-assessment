@@ -8,10 +8,9 @@ import { CategoryEntity } from '../categories/entity/category.entity';
 
 @Module({
     imports: [
-        // Import the TypeOrmModule to use the Product and Category entities.
         TypeOrmModule.forFeature([ProductEntity, CategoryEntity]),
     ],
-    controllers: [ProductsController], // Register the controller
-    providers: [ProductsService, ProductsRepository], // Register the service and repository
+    controllers: [ProductsController],
+    providers: [ProductsService, ProductsRepository],
 })
 export class ProductsModule { }

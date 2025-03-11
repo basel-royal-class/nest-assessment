@@ -9,7 +9,7 @@ import { CategoriesRepository } from './categories.repository';
     imports: [
         TypeOrmModule.forFeature([CategoryEntity]),
     ],
-    controllers: [CategoriesController], // Register the controller
-    providers: [CategoriesService, CategoriesRepository], // Register the service and repository
+    controllers: [CategoriesController],
+    providers: [CategoriesService, CategoriesRepository],
 })
 export class CategoriesModule { }

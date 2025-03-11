@@ -13,7 +13,7 @@ export class CategoriesService {
     }
 
     // Update Category
-    async updateCategory(updateCategoryDto: UpdateCategoryDto): Promise<{} | CategoryEntity> {
+    async updateCategory(updateCategoryDto: UpdateCategoryDto): Promise<CategoryEntity> {
         return this.productsRepository.updateCategory(updateCategoryDto);
     }
 

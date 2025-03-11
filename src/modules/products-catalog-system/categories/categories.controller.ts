@@ -26,7 +26,7 @@ export class CategoriesController {
     @Patch()
     async updateCategory(
         @Body() updateCategoryDto: UpdateCategoryDto, // Get the update data from the request body
-    ): Promise<{} | CategoryEntity> {
+    ): Promise<CategoryEntity> {
         return this.categoriesService.updateCategory(updateCategoryDto);
     }
 

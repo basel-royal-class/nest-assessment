@@ -5,11 +5,14 @@ import { UsersModule } from './users/users.module';
 import { AuthModule } from './auth/auth-module';
 import { ProductsModule } from './modules/products-catalog-system/products/products.module';
 import { CategoriesModule } from './modules/products-catalog-system/categories/categories.module';
+import { OrdersModule } from './modules/orders-management-system/orders/orders.module';
+import { OrderItemsModule } from './modules/orders-management-system/order_items/order.items.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true, // Inject Global Config file
     }),
+
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOST,
@@ -23,8 +26,9 @@ import { CategoriesModule } from './modules/products-catalog-system/categories/c
     UsersModule,
     AuthModule,
     ProductsModule,
-    CategoriesModule
-
+    CategoriesModule,
+    OrderItemsModule,
+    OrdersModule,
   ],
 })
 export class AppModule { }
