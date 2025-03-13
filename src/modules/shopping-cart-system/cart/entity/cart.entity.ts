@@ -1,4 +1,4 @@
-import { Users } from 'src/users/users.entity';
+import { Users } from '../../../../users/users.entity';
 import { Column, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 import { CartItemEntity } from '../../cart_item/entity/cart.item.entity';
 

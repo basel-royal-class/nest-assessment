@@ -14,10 +14,10 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CategoriesController = void 0;
 const common_1 = require("@nestjs/common");
-const auth_guard_1 = require("../../../auth/auth-guard");
 const create_category_dto_1 = require("../categories/dto/create.category.dto");
 const categories_service_1 = require("./categories.service");
 const update_category_dto_1 = require("./dto/update.category.dto");
+const auth_guard_1 = require("../../../auth/auth.guard");
 let CategoriesController = class CategoriesController {
     categoriesService;
     constructor(categoriesService) {

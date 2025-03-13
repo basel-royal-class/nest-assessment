@@ -14,7 +14,7 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.OrdersController = void 0;
 const common_1 = require("@nestjs/common");
-const auth_guard_1 = require("../../../auth/auth-guard");
+const auth_guard_1 = require("../../../auth/auth.guard");
 const create_order_dto_1 = require("./dto/create.order.dto");
 const orders_service_1 = require("./orders.service");
 const update_order_dto_1 = require("./dto/update.order.dto");

@@ -1,9 +1,9 @@
 import { Controller, Post, Body, Patch, Param, Delete, UseGuards, Get } from '@nestjs/common';
 import { ProductsService } from './products.service';
 import { ProductEntity } from './entity/product.entity';
-import { JwtAuthGuard } from 'src/auth/auth-guard';
 import { CreateProductDto } from './dto/create.product.dto';
 import { UpdateProductDto } from './dto/update.product.dto';
+import { JwtAuthGuard } from 'src/auth/auth.guard';
 
 @Controller('products')
 @UseGuards(new JwtAuthGuard('jwt'))

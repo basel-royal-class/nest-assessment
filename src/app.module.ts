@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
-import { AuthModule } from './auth/auth-module';
+import { AuthModule } from './auth/auth.module';
 import { ProductsModule } from './modules/products-catalog-system/products/products.module';
 import { CategoriesModule } from './modules/products-catalog-system/categories/categories.module';
 import { OrdersModule } from './modules/orders-management-system/orders/orders.module';
@@ -13,7 +13,6 @@ import { CartsModule } from './modules/shopping-cart-system/cart/carts.module';
     ConfigModule.forRoot({
       isGlobal: true, // Inject Global Config file
     }),
-
     TypeOrmModule.forRoot({
       type: 'mysql',
       host: process.env.DB_HOST,

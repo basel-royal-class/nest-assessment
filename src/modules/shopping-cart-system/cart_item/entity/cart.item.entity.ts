@@ -1,5 +1,6 @@
 import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { ProductEntity } from 'src/modules/products-catalog-system/products/entity/product.entity';
+import { ProductEntity } from '../../../products-catalog-system/products/entity/product.entity';
+
 import { CartEntity } from '../../cart/entity/cart.entity';
 
 @Entity('cart_item')
