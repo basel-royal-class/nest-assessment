@@ -15,19 +15,14 @@ export class ProductsRepository extends Repository<ProductEntity> {
     }
 
     async createProduct(createProductDto: CreateProductDto): Promise<ProductEntity> {
-        const { name, categoryId, description, price } = createProductDto;
+        // const { name, categoryId, description, price } = createProductDto;
 
-        const category = await this.findOne({ where: { id: categoryId } });
-        if (!category) {
-            throw new Error('Category not found');
-        }
+        // const category = await this.categoryRepository.findOne({ where: { id: categoryId } });
+        // if (!category) {
+        //     // throw new Error('Category not found');
+        // }
 
-        const product = this.create({
-            name,
-            description,
-            price,
-            categoryId,
-        });
+        const product = this.create(createProductDto);
 
         return await this.save(product);
     }
