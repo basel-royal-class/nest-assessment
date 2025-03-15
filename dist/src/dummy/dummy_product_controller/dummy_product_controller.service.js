@@ -24,7 +24,7 @@ let DummyProductControllerService = class DummyProductControllerService extends 
             .orderBy("products.created_at", "DESC")
             .take(limit);
         if (cursor) {
-            query.where("products.created_at < :cursor", { cursor });
+            query.where("products.created_at >= :cursor", { cursor });
         }
         const products = await query.getMany();
         const total = await this.count();

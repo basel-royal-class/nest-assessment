@@ -1,4 +1,5 @@
 import { DummyProductControllerService } from './dummy_product_controller.service';
+import { Response } from 'express';
 export declare class DummyProductController {
     private readonly productsService;
     constructor(productsService: DummyProductControllerService);
@@ -9,4 +10,5 @@ export declare class DummyProductController {
         total: number;
         cTotal: number;
     }>;
+    streamProducts(res: Response): void;
 }

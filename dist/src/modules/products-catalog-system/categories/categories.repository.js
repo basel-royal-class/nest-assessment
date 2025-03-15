@@ -23,7 +23,6 @@ let CategoriesRepository = class CategoriesRepository extends typeorm_1.Reposito
         const { name } = categoryDto;
         const categoryDB = await this.findOne({ where: { name: name } });
         if (categoryDB) {
-            throw new Error('Category exists with same name');
         }
         const category = this.create({ name });
         return await this.save(category);

@@ -18,6 +18,7 @@ const orders_module_1 = require("./modules/orders-management-system/orders/order
 const order_items_module_1 = require("./modules/orders-management-system/order_items/order.items.module");
 const carts_module_1 = require("./modules/shopping-cart-system/cart/carts.module");
 const dummy_product_module_module_1 = require("./dummy/dummy_product_module/dummy_product_module.module");
+const upload_module_1 = require("./modules/upload-manager/upload.module");
 let AppModule = class AppModule {
 };
 exports.AppModule = AppModule;
@@ -45,7 +46,8 @@ exports.AppModule = AppModule = __decorate([
             orders_module_1.OrdersModule,
             carts_module_1.CartsModule,
             order_items_module_1.OrderItemsModule,
-            dummy_product_module_module_1.DummyProductModuleModule
+            dummy_product_module_module_1.DummyProductModuleModule,
+            upload_module_1.UploadModule
         ],
     })
 ], AppModule);

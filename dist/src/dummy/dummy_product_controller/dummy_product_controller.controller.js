@@ -23,6 +23,20 @@ let DummyProductController = class DummyProductController {
     async getProducts(cursor, limit = 10) {
         return this.productsService.getProducts(cursor, Number(limit));
     }
+    streamProducts(res) {
+        res.setHeader('Content-Type', 'text/event-stream');
+        res.setHeader('Cache-Control', 'no-cache');
+        res.setHeader('Connection', 'keep-alive');
+        setInterval(() => {
+            const productUpdate = {
+                id: Math.floor(Math.random() * 1000),
+                name: `Product ${Math.floor(Math.random() * 100)}`,
+                category: `Category ${Math.floor(Math.random() * 10)}`,
+                timestamp: new Date().toISOString(),
+            };
+            res.write(`data: ${JSON.stringify(productUpdate)}\n\n`);
+        }, 5000);
+    }
 };
 exports.DummyProductController = DummyProductController;
 __decorate([
@@ -33,6 +47,13 @@ __decorate([
     __metadata("design:paramtypes", [String, Object]),
     __metadata("design:returntype", Promise)
 ], DummyProductController.prototype, "getProducts", null);
+__decorate([
+    (0, common_1.Get)('stream'),
+    __param(0, (0, common_1.Res)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [Object]),
+    __metadata("design:returntype", void 0)
+], DummyProductController.prototype, "streamProducts", null);
 exports.DummyProductController = DummyProductController = __decorate([
     (0, common_1.Controller)('dummy-products'),
     __metadata("design:paramtypes", [dummy_product_controller_service_1.DummyProductControllerService])

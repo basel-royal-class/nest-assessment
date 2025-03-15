@@ -9,6 +9,7 @@ import { OrdersModule } from './modules/orders-management-system/orders/orders.m
 import { OrderItemsModule } from './modules/orders-management-system/order_items/order.items.module';
 import { CartsModule } from './modules/shopping-cart-system/cart/carts.module';
 import { DummyProductModuleModule } from './dummy/dummy_product_module/dummy_product_module.module';
+import { UploadModule } from './modules/upload-manager/upload.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -32,7 +33,8 @@ import { DummyProductModuleModule } from './dummy/dummy_product_module/dummy_pro
     OrdersModule,
     CartsModule,
     OrderItemsModule,
-    DummyProductModuleModule
+    DummyProductModuleModule,
+    UploadModule
   ],
 })
 export class AppModule { }
