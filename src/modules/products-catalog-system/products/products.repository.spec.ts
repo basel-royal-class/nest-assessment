@@ -2,13 +2,13 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { DataSource } from 'typeorm';
 import { ProductsRepository } from './products.repository';
 import { CreateProductDto } from './dto/create.product.dto';
+import { TestDatabaseModule } from '../../../../test-database.module';
 
 describe('ProductsRepository', () => {
     let repository: ProductsRepository;
     let dataSourceMock: Partial<DataSource>;
 
     beforeEach(async () => {
-
         dataSourceMock = {
             createEntityManager: jest.fn(),
             getRepository: jest.fn().mockReturnValue({
@@ -19,6 +19,7 @@ describe('ProductsRepository', () => {
         };
 
         const module: TestingModule = await Test.createTestingModule({
+            imports: [TestDatabaseModule],
             providers: [
                 ProductsRepository,
                 { provide: DataSource, useValue: dataSourceMock },
