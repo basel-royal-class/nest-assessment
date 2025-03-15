@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { DataSource } from 'typeorm';
-import { ProductsRepository } from './products.repository';
-import { CreateProductDto } from './dto/create.product.dto';
+import { CategoriesRepository } from './categories.repository';
+import { CreateCategoryDto } from './dto/create.category.dto';
 
-describe('ProductsRepository', () => {
-    let repository: ProductsRepository;
+describe('CategoriesRepository', () => {
+    let repository: CategoriesRepository;
     let dataSourceMock: Partial<DataSource>;
 
     beforeEach(async () => {
@@ -14,27 +14,27 @@ describe('ProductsRepository', () => {
             getRepository: jest.fn().mockReturnValue({
                 findOne: jest.fn().mockResolvedValue(null),
                 create: jest.fn().mockImplementation((data) => data),
-                save: jest.fn().mockResolvedValue({ name: 'Product 01', description: 'Some Description for testing', price: 20, categoryId: 1 }),
+                save: jest.fn().mockResolvedValue({ name: 'Category 01' }),
             }),
         };
 
         const module: TestingModule = await Test.createTestingModule({
             providers: [
-                ProductsRepository,
+                CategoriesRepository,
                 { provide: DataSource, useValue: dataSourceMock },
             ],
         }).compile();
 
-        repository = module.get<ProductsRepository>(ProductsRepository);
+        repository = module.get<CategoriesRepository>(CategoriesRepository);
+        (repository as any).findOne = dataSourceMock.getRepository;
         (repository as any).create = dataSourceMock.getRepository;
         (repository as any).save = dataSourceMock.getRepository;
-
     });
 
-    it('should create a new product', async () => {
-        const data = { name: 'Product 01', description: 'Some Description for testing', price: 20, categoryId: 1 };
+    it('should create a new category', async () => {
+        const data = { name: 'Category 01' };
         repository.save = jest.fn().mockResolvedValue(data);
-        const createProductDto: CreateProductDto = data;
-        await repository.createProduct(createProductDto);
+        const categoryDTO: CreateCategoryDto = data;
+        await repository.createCategory(categoryDTO);
     });
 });

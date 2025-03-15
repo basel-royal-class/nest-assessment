@@ -3,7 +3,6 @@ import { CategoryEntity } from '../../categories/entity/category.entity';
 import { OrderItemEntity } from '../../../orders-management-system/order_items/entity/order.item.entity';
 import { CartItemEntity } from '../../../shopping-cart-system/cart_item/entity/cart.item.entity';
 
-
 @Entity('products')
 export class ProductEntity {
     @PrimaryGeneratedColumn()
@@ -21,6 +20,9 @@ export class ProductEntity {
     @Column()
     categoryId: number; // Foreign key column
 
+    @Column()
+    created_at: Date;
+
     @ManyToOne(() => CategoryEntity, (category) => category.products, { onDelete: 'CASCADE' })
     @JoinColumn({ name: 'categoryId' }) // Specifies the column to use as the foreign key
     category: CategoryEntity; // Optional: this gives you access to the full Category object (populated automatically)
@@ -30,5 +32,4 @@ export class ProductEntity {
 
     @OneToMany(() => CartItemEntity, (cartItem) => cartItem.product)
     cartItems: CartItemEntity[];
-
 }

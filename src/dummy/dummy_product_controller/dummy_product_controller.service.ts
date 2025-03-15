@@ -1,19 +1,20 @@
 import { Injectable } from '@nestjs/common';
-import { DummyProductEntity } from '../dymmy-product';
+import { ProductEntity } from 'src/modules/products-catalog-system/products/entity/product.entity';
 import { DataSource, Repository } from 'typeorm';
 
 @Injectable()
-export class DummyProductControllerService extends Repository<DummyProductEntity> {
+export class DummyProductControllerService extends Repository<ProductEntity> {
     constructor(private dataSource: DataSource) {
-        super(DummyProductEntity, dataSource.createEntityManager());
+        super(ProductEntity, dataSource.createEntityManager());
     }
+
     async getProducts(cursor?: string, limit: number = 10) {
-        const query = this.createQueryBuilder("product")
-            .orderBy("product.created_at", "DESC")
+        const query = this.createQueryBuilder("products")
+            .orderBy("products.created_at", "DESC")
             .take(limit);
 
         if (cursor) {
-            query.where("product.created_at < :cursor", { cursor });
+            query.where("products.created_at >= :cursor", { cursor });
         }
 
         const products = await query.getMany();
@@ -27,7 +28,6 @@ export class DummyProductControllerService extends Repository<DummyProductEntity
             cTotal: total / limit
         };
     }
-
 
     // async getProducts(page: number = 1, limit: number = 10): Promise<{}> {
     //     const skip = (page - 1) * limit; // Calculate the offset
