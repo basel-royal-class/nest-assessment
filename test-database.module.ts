@@ -12,7 +12,6 @@ export const TestDatabaseModule = TypeOrmModule.forRoot({
   username: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
   database: process.env.DB_NAME,
-  entities: [ProductEntity, Users],
   autoLoadEntities: true, // Add all entities automatically
   synchronize: process.env.DB_SYNCHRONIZE === 'true', // Auto sync DB schema (disable in production)
 });

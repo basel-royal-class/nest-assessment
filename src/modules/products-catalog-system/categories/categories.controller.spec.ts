@@ -1,40 +1,84 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { DataSource } from 'typeorm';
-import { CategoriesRepository } from './categories.repository';
-import { CreateCategoryDto } from './dto/create.category.dto';
+import { CategoriesController } from './categories.controller';
+import { CategoriesService } from './categories.service';
+import { JwtAuthGuard } from '../../../auth/auth.guard';
+import { CreateCategoryDto } from '../categories/dto/create.category.dto';
+import { UpdateCategoryDto } from './dto/update.category.dto';
+import { CategoryEntity } from '../categories/entity/category.entity';
+import { TestDatabaseModule } from '../../../../test-database.module';
 
-describe('CategoriesRepository', () => {
-    let repository: CategoriesRepository;
-    let dataSourceMock: Partial<DataSource>;
+describe('CategoriesController', () => {
+    let categoriesController: CategoriesController;
+    let categoriesService: CategoriesService;
+
+    const mockCategoriesService = {
+        createCategory: jest.fn(),
+        getCategories: jest.fn(),
+        updateCategory: jest.fn(),
+    };
 
     beforeEach(async () => {
-
-        dataSourceMock = {
-            createEntityManager: jest.fn(),
-            getRepository: jest.fn().mockReturnValue({
-                findOne: jest.fn().mockResolvedValue(null),
-                create: jest.fn().mockImplementation((data) => data),
-                save: jest.fn().mockResolvedValue({ name: 'Category 01' }),
-            }),
-        };
-
         const module: TestingModule = await Test.createTestingModule({
+            controllers: [CategoriesController],
             providers: [
-                CategoriesRepository,
-                { provide: DataSource, useValue: dataSourceMock },
+                {
+                    provide: CategoriesService,
+                    useValue: mockCategoriesService,
+                },
             ],
-        }).compile();
+            imports: [TestDatabaseModule]
+        })
+            .overrideGuard(JwtAuthGuard)
+            .useValue({ canActivate: jest.fn(() => true) }) // Mock JwtAuthGuard to always return true
+            .compile();
 
-        repository = module.get<CategoriesRepository>(CategoriesRepository);
-        (repository as any).findOne = dataSourceMock.getRepository;
-        (repository as any).create = dataSourceMock.getRepository;
-        (repository as any).save = dataSourceMock.getRepository;
+        categoriesController = module.get<CategoriesController>(CategoriesController);
+        categoriesService = module.get<CategoriesService>(CategoriesService);
     });
 
-    it('should create a new category', async () => {
-        const data = { name: 'Category 01' };
-        repository.save = jest.fn().mockResolvedValue(data);
-        const categoryDTO: CreateCategoryDto = data;
-        await repository.createCategory(categoryDTO);
+    it('should be defined', () => {
+        expect(categoriesController).toBeDefined();
+    });
+
+    describe('createCategory', () => {
+        it('should call createCategory and return a category', async () => {
+            const createCategoryDto: CreateCategoryDto = {
+                name: 'Test Category',
+            };
+            const result: CategoryEntity = {
+                id: 1,
+                ...createCategoryDto,
+                products: []
+            };
+            mockCategoriesService.createCategory.mockResolvedValue(result);
+            expect(await categoriesController.createCategory(createCategoryDto)).toEqual(result);
+            expect(mockCategoriesService.createCategory).toHaveBeenCalledWith(createCategoryDto);
+        });
+    });
+
+    describe('getCategories', () => {
+        it('should call getCategories and return an array of categories', async () => {
+            const result: CategoryEntity[] = [
+                { id: 1, name: 'Category 1', products: [] },
+                { id: 2, name: 'Category 2', products: [] },
+            ];
+
+            mockCategoriesService.getCategories.mockResolvedValue(result);
+
+            expect(await categoriesController.getCategories()).toEqual(result);
+            expect(mockCategoriesService.getCategories).toHaveBeenCalled();
+        });
+    });
+
+    describe('updateCategory', () => {
+        it('should call updateCategory and return an updated category', async () => {
+            const updateCategoryDto: UpdateCategoryDto = { id: 1, name: 'Updated Category' };
+            const result: CategoryEntity = { id: 1, name: "Updated Category'", products: [], ...updateCategoryDto };
+
+            mockCategoriesService.updateCategory.mockResolvedValue(result);
+
+            expect(await categoriesController.updateCategory(updateCategoryDto)).toEqual(result);
+            expect(mockCategoriesService.updateCategory).toHaveBeenCalledWith(updateCategoryDto);
+        });
     });
 });
