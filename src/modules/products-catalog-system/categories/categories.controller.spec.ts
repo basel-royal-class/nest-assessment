@@ -5,7 +5,6 @@ import { JwtAuthGuard } from '../../../auth/auth.guard';
 import { CreateCategoryDto } from '../categories/dto/create.category.dto';
 import { UpdateCategoryDto } from './dto/update.category.dto';
 import { CategoryEntity } from '../categories/entity/category.entity';
-import { TestDatabaseModule } from '../../../../test-database.module';
 
 describe('CategoriesController', () => {
     let categoriesController: CategoriesController;
@@ -26,7 +25,6 @@ describe('CategoriesController', () => {
                     useValue: mockCategoriesService,
                 },
             ],
-            imports: [TestDatabaseModule]
         })
             .overrideGuard(JwtAuthGuard)
             .useValue({ canActivate: jest.fn(() => true) }) // Mock JwtAuthGuard to always return true

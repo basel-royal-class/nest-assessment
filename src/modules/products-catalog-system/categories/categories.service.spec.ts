@@ -4,7 +4,6 @@ import { CategoriesRepository } from './categories.repository';
 import { CreateCategoryDto } from './dto/create.category.dto';
 import { UpdateCategoryDto } from './dto/update.category.dto';
 import { CategoryEntity } from './entity/category.entity';
-import { TestDatabaseModule } from '../../../../test-database.module';
 
 describe('CategoriesService', () => {
     let categoriesService: CategoriesService;
@@ -25,7 +24,6 @@ describe('CategoriesService', () => {
                     useValue: mockCategoriesRepository,
                 },
             ],
-            imports: [TestDatabaseModule]
         }).compile();
 
         categoriesService = module.get<CategoriesService>(CategoriesService);

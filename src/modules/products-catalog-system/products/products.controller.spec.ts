@@ -6,7 +6,7 @@ import { ProductEntity } from './entity/product.entity';
 import { CreateProductDto } from './dto/create.product.dto';
 import { UpdateProductDto } from './dto/update.product.dto';
 import { CategoryEntity } from '../categories/entity/category.entity';
-import { TestDatabaseModule } from '../../../../test-database.module';
+
 
 describe('ProductsController', () => {
     let productsController: ProductsController;
@@ -28,7 +28,6 @@ describe('ProductsController', () => {
                     useValue: mockProductService,
                 },
             ],
-            imports: [TestDatabaseModule]
         })
             .overrideGuard(JwtAuthGuard)
             .useValue({ canActivate: jest.fn(() => true) }) // Mock JwtAuthGuard to always return true
@@ -65,10 +64,13 @@ describe('ProductsController', () => {
                 cartItems: [],
             };
 
-            mockProductService.createProduct.mockResolvedValue(result);
+            // mockProductService.createProduct.mockResolvedValue(result);
+            // expect(await productsController.createProduct(createProductDto)).toEqual(result);
+            // expect(mockProductService.createProduct).toHaveBeenCalledWith(createProductDto);
 
-            expect(await productsController.createProduct(createProductDto)).toEqual(result);
+            const productResult = await productsController.createProduct(createProductDto);
             expect(mockProductService.createProduct).toHaveBeenCalledWith(createProductDto);
+             expect(productResult ).toEqual(result);
         });
     });
 

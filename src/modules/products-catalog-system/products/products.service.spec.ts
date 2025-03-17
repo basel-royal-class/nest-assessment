@@ -5,7 +5,6 @@ import { ProductEntity } from './entity/product.entity';
 import { CreateProductDto } from './dto/create.product.dto';
 import { UpdateProductDto } from './dto/update.product.dto';
 import { CategoryEntity } from '../categories/entity/category.entity';
-import { TestDatabaseModule } from '../../../../test-database.module';
 
 describe('ProductsService', () => {
     let productsService: ProductsService;
@@ -26,7 +25,6 @@ describe('ProductsService', () => {
                     },
                 },
             ],
-            imports: [TestDatabaseModule]
         }).compile();
 
         productsService = module.get<ProductsService>(ProductsService);
